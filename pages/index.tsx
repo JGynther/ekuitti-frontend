@@ -7,7 +7,6 @@ const Home: NextPage = () => {
       <Head>
         <title>eKuitti</title>
         <meta name="description" content="" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
       </main>
