@@ -8,7 +8,7 @@
 // or
 // import ExampleComponent from "@components/page/exampleComponent"
 
-import { Props } from "./types"; // vs "@components/exampleComponent/types"? could also be @types/exampleComponent
+import { Props } from "@typings/exampleComponent" // @typings/exampleComponent equals components/exampleComponent/types
 
 // Props should be destructured to avoid "props.property" syntax (ie. props.children)
 // NOTE: Children are by default defined in React functional component typing and is not required to explicitly define
