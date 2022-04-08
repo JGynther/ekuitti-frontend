@@ -8,13 +8,7 @@
 // or
 // import ExampleComponent from "@components/page/exampleComponent"
 
-
-// UDECIDED: should types be a separate file in component folders? 
-// On one hand it would separate conserns and allow for easier exporting, on the other, 
-// the type definition near component code makes it clearer.
-type Props = {
-    example: string,
-}
+import { Props } from "./types"; // vs "@components/exampleComponent/types"? could also be @types/exampleComponent
 
 // Props should be destructured to avoid "props.property" syntax (ie. props.children)
 // NOTE: Children are by default defined in React functional component typing and is not required to explicitly define
