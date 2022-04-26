@@ -6,4 +6,4 @@ const Wrapper: React.FC = ({ children }) => {
     )
 }
 
-export default Wrapper;
+export default Wrapper
