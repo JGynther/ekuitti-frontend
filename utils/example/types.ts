@@ -1,2 +1,2 @@
 // Empty example type file
-export type { }
+export type {};
