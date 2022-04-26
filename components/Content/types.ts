@@ -1,7 +1,7 @@
 type Props = {
-    sidebar: React.ReactElement,
-    navigation: React.ReactElement,
-    footer: React.ReactElement
-}
+  sidebar: React.ReactElement;
+  navigation: React.ReactElement;
+  footer: React.ReactElement;
+};
 
-export type { Props}
+export type { Props };

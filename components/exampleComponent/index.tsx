@@ -8,17 +8,13 @@
 // or
 // import ExampleComponent from "@components/page/exampleComponent"
 
-import { Props } from "@typings/exampleComponent" // @typings/exampleComponent equals components/exampleComponent/types
+import { Props } from "@typings/exampleComponent"; // @typings/exampleComponent equals components/exampleComponent/types
 
 // Props should be destructured to avoid "props.property" syntax (ie. props.children)
 // NOTE: Children are by default defined in React functional component typing and is not required to explicitly define
 const ExampleComponent: React.FC<Props> = ({ example, children }) => {
-    return (
-        <div id={example}>
-            {children}
-        </div>
-    )
-}
+  return <div id={example}>{children}</div>;
+};
 
 // Export components at the bottom, ie. not before function definition
-export default ExampleComponent
+export default ExampleComponent;

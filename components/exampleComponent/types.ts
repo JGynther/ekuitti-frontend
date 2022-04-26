@@ -3,8 +3,8 @@
 
 // Prefer type syntax over interface as it is often more concise
 type Props = {
-    example: string,
-}
+  example: string;
+};
 
 // Export components at the bottom, ie. not before function definition
-export type { Props, };
+export type { Props };
