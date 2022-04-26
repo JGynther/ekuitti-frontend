@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import fetcher from "@utils/fetcher";
-import type { Receipts } from "./types";
+import type { Receipts } from "@typings/useReceipts";
 
 const useReceipts = () => {
   const { data, error } = useSWR<Receipts>(
