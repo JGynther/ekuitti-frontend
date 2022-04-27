@@ -3,7 +3,7 @@ import fetcher from "@utils/fetcher";
 
 const useRequest = <T>(route: string) => {
   const { data, error } = useSWR<T>(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}${route}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${route}`, // assumes you are using the backend!
     fetcher
   );
   return {
