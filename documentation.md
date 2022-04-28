@@ -75,10 +75,7 @@ Kun komponentit, utilityt ja muut osat on jaoteltu ohjeen mukaisesti, tulisi jok
 ##### Tuominen
 ```tsx
 import type { exampleType, anotherType } from "@typings/exampleComponent"
-// or
-import type { exampleType, anotherType } from "./types"
 ```
-Huom! @typings-oikopolku koskee vain komponentteja!
   
 ### Sivut
 #### Yleistä
