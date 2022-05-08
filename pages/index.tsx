@@ -6,7 +6,6 @@ import Content from "@components/Content";
 import Sidebar from "@components/Sidebar";
 import Footer from "@components/Footer";
 import Navigation from "@components/Navigation";
-import Receipts from "@components/Receipts";
 
 const Home: NextPage = () => {
   return (
@@ -21,7 +20,6 @@ const Home: NextPage = () => {
         footer={<Footer />}
       >
         <Dashboard />
-        <Receipts />
         <Temp />
       </Content>
     </Wrapper>

@@ -1,4 +1,5 @@
 import ReceiptBoard from "./ReceiptBoard";
+import ReceiptsTable from "@components/ReceiptsTable";
 
 const Dashboard: React.FC = () => {
   return (
@@ -8,11 +9,15 @@ const Dashboard: React.FC = () => {
       </div>
       <div className="flex gap-10">
         <ReceiptBoard>
-          <ReceiptBoard.Header></ReceiptBoard.Header>
-          <ReceiptBoard.Row>Testi</ReceiptBoard.Row>
-          <ReceiptBoard.Row>Testi</ReceiptBoard.Row>
+          <ReceiptBoard.Header>Vastaanotetut kuitit</ReceiptBoard.Header>
+          <ReceiptsTable />
+          <ReceiptBoard.Row>Näytä kaikki</ReceiptBoard.Row>
         </ReceiptBoard>
-        <ReceiptBoard />
+        <ReceiptBoard>
+          <ReceiptBoard.Header>Lähetetyt kuitit</ReceiptBoard.Header>
+          
+          <ReceiptBoard.Row>Näytä kaikki</ReceiptBoard.Row>
+        </ReceiptBoard>
       </div>
     </section>
   );
