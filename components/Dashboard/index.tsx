@@ -1,5 +1,5 @@
-import ReceiptBoard from "./ReceiptBoard";
 import ReceiptsTable from "@components/ReceiptsTable";
+import Link from 'next/link';
 
 const Dashboard: React.FC = () => {
   return (
@@ -8,16 +8,27 @@ const Dashboard: React.FC = () => {
         <h2 className="text-2xl font-semibold">Terve [henkilö]!</h2>
       </div>
       <div className="flex gap-10">
-        <ReceiptBoard>
-          <ReceiptBoard.Header>Vastaanotetut kuitit</ReceiptBoard.Header>
+
+        <div className="flex-grow bg-neutral-800 px-4 py-5 rounded">
+          <div className="text-lg mb-3">Vastaanotetut kuitit</div>
           <ReceiptsTable />
-          <ReceiptBoard.Row>Näytä kaikki</ReceiptBoard.Row>
-        </ReceiptBoard>
-        <ReceiptBoard>
-          <ReceiptBoard.Header>Lähetetyt kuitit</ReceiptBoard.Header>
+          <Link href={`/receipts`}>
+            <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+              Näytä kaikki
+            </a>
+          </Link>
+        </div>
+
+        <div className="flex-grow bg-neutral-800 px-4 py-5 rounded">
+          <div className="text-lg mb-3">Lähetetyt kuitit</div>
           
-          <ReceiptBoard.Row>Näytä kaikki</ReceiptBoard.Row>
-        </ReceiptBoard>
+          <Link href={`/#`}>
+            <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+              Näytä kaikki
+            </a>
+          </Link>
+        </div>
+
       </div>
     </section>
   );
