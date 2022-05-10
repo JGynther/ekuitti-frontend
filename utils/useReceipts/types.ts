@@ -1,6 +1,7 @@
 type Receipts = Receipt[];
 
 type Receipt = {
+  id: string;
   date: string;
   company: {
     name: string;
