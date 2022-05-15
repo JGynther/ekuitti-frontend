@@ -23,8 +23,9 @@ const usePost = (initialRequest: PostRequest) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(request.body),
-        }).then((res) => res.json());
-        setResponse(res);
+        })
+        const resJson = await res.json()
+        setResponse(resJson);
       } catch (error) {
         // Currently an erroneus response is not treated as a error by this.
         // It is instead passed as the response to ui.
