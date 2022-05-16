@@ -6,16 +6,21 @@ import { useState, useEffect } from "react";
 // post requests with this hook **FIRE TWICE**
 // This does not happen in production.
 // Please see: https://reactjs.org/docs/strict-mode.html#ensuring-reusable-state
-const usePost = (initialRequest: PostRequest) => {
+const usePost = (initialRequest?: PostRequest) => {
   const [response, setResponse] = useState<JSON | undefined>();
-  const [request, setRequest] = useState<PostRequest>(initialRequest);
+  const [request, setRequest] = useState<undefined | PostRequest>(
+    initialRequest
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const postData = async () => {
+      if (!request || !request.url) return;
+
       setIsError(false);
       setIsLoading(true);
+
       try {
         const res = await fetch(request.url, {
           method: "POST",
@@ -23,21 +28,20 @@ const usePost = (initialRequest: PostRequest) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(request.body),
-        })
-        const resJson = await res.json()
-        setResponse(resJson);
+        });
+        const json = await res.json();
+        setResponse(json);
       } catch (error) {
         // Currently an erroneus response is not treated as a error by this.
         // It is instead passed as the response to ui.
         // TODO: is this the wanted behaviour?
         setIsError(true);
       }
+
       setIsLoading(false);
     };
 
-    if (Object.keys(request.body).length !== 0 && request.url) {
-      postData();
-    }
+    postData();
   }, [request]);
 
   return { response, isLoading, isError, setRequest };
