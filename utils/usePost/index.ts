@@ -30,6 +30,10 @@ const usePost = (initialRequest?: PostRequest) => {
           body: JSON.stringify(request.body),
         });
         const json = await res.json();
+
+        // Log response to console if in development mode
+        if (process.env.NODE_ENV === "development") console.log(json);
+
         setResponse(json);
       } catch (error) {
         // Currently an erroneus response is not treated as a error by this.

@@ -3,52 +3,42 @@ import usePost from "@utils/usePost";
 import { PostRequest } from "@typings/usePost";
 import { useEffect, useState } from "react";
 
-const LoginForm: React.FC = ({ children }) => {
-
-  const initialPostRequest: PostRequest = {
-    url: "",
-    body: {}
-  }
-
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const { response, setRequest } = usePost(initialPostRequest)
+const LoginForm: React.FC = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { response, setRequest } = usePost();
 
   const handleUsernameChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setUsername(event.currentTarget.value)
-  }
+    setUsername(event.currentTarget.value);
+  };
 
   const handlePasswordChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setPassword(event.currentTarget.value)
-  }
-
-  useEffect(() => {
-    console.log(response)
-  }, [response]);
+    setPassword(event.currentTarget.value);
+  };
 
   const useLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
     const postRequest: PostRequest = {
       url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`,
       body: {
         username: username,
-        password: password
-      }
-    }
-    
-    setRequest(postRequest)
+        password: password,
+      },
+    };
 
-    setUsername('')
-    setPassword('')
-  }
-  
+    setRequest(postRequest);
+
+    setUsername("");
+    setPassword("");
+  };
+
   return (
     <div>
       <form onSubmit={useLogin}>
         <div className="py-2">
           Käyttäjänimi
           <input
-            id='username'
+            id="username"
             type="text"
             value={username}
             name="Username"
@@ -58,7 +48,7 @@ const LoginForm: React.FC = ({ children }) => {
         <div className="py-2">
           Salasana
           <input
-            id='password'
+            id="password"
             type="password"
             value={password}
             name="Password"
