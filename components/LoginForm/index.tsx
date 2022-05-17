@@ -6,7 +6,16 @@ import { useEffect, useState } from "react";
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { response, setRequest } = usePost();
+
+  const handleUser = (res: { token: string }) => {
+    // Simply set a cookie named token
+    document.cookie = `token=${res.token}`;
+  };
+
+  // usePost hook with callback
+  const { response, setRequest } = usePost({
+    callback: handleUser,
+  });
 
   const handleUsernameChange = (event: React.FormEvent<HTMLInputElement>) => {
     setUsername(event.currentTarget.value);

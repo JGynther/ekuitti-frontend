@@ -1,16 +1,20 @@
 import { PostRequest } from "@typings/usePost";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 // NOTE:
 // Due to react.strictMode being enabled on development version
 // post requests with this hook **FIRE TWICE**
 // This does not happen in production.
 // Please see: https://reactjs.org/docs/strict-mode.html#ensuring-reusable-state
-const usePost = (
-  initialRequest?: PostRequest,
-  callback?: (res?: JSON) => void
-) => {
-  const [response, setResponse] = useState<JSON | undefined>();
+const usePost = ({
+  initialRequest,
+  callback,
+}: {
+  // NOTE: typing here as will most likely change to avoid hard typing returns
+  initialRequest?: PostRequest;
+  callback?: (params: any) => void;
+} = {}) => {
+  const [response, setResponse] = useState<{} | undefined>();
   const [request, setRequest] = useState<undefined | PostRequest>(
     initialRequest
   );
@@ -37,9 +41,6 @@ const usePost = (
         // Log response to console if in development mode
         if (process.env.NODE_ENV === "development") console.log(json);
 
-        // If a callback function is defined, call it with response data
-        if (callback) callback(json);
-
         setResponse(json);
       } catch (error) {
         // Currently an erroneus response is not treated as a error by this.
@@ -52,7 +53,11 @@ const usePost = (
     };
 
     postData();
-  }, [request, callback]);
+  }, [request]);
+
+  useEffect(() => {
+    response && callback && callback(response);
+  }, [callback, response]);
 
   return { response, isLoading, isError, setRequest };
 };
