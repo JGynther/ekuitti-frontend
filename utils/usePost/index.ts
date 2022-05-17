@@ -6,7 +6,10 @@ import { useState, useEffect } from "react";
 // post requests with this hook **FIRE TWICE**
 // This does not happen in production.
 // Please see: https://reactjs.org/docs/strict-mode.html#ensuring-reusable-state
-const usePost = (initialRequest?: PostRequest) => {
+const usePost = (
+  initialRequest?: PostRequest,
+  callback?: (res?: JSON) => void
+) => {
   const [response, setResponse] = useState<JSON | undefined>();
   const [request, setRequest] = useState<undefined | PostRequest>(
     initialRequest
@@ -34,6 +37,9 @@ const usePost = (initialRequest?: PostRequest) => {
         // Log response to console if in development mode
         if (process.env.NODE_ENV === "development") console.log(json);
 
+        // If a callback function is defined, call it with response data
+        if (callback) callback(json);
+
         setResponse(json);
       } catch (error) {
         // Currently an erroneus response is not treated as a error by this.
@@ -46,7 +52,7 @@ const usePost = (initialRequest?: PostRequest) => {
     };
 
     postData();
-  }, [request]);
+  }, [request, callback]);
 
   return { response, isLoading, isError, setRequest };
 };
