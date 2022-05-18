@@ -1,15 +1,26 @@
 import Button from "@components/Button";
 import usePost from "@utils/usePost";
 import { PostRequest } from "@typings/usePost";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import setToken from "@utils/auth/setToken";
+import { useAuth } from "@utils/auth";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleUser = (res: { token: string }) => {
-    // Simply set a cookie named token
-    document.cookie = `token=${res.token}`;
+  const auth = useAuth();
+
+  const handleUser = (res: {
+    token: string;
+    username: string;
+    name: string;
+  }) => {
+    setToken(res.token);
+    auth?.setAuth({
+      user: { username: res.username, name: res.name },
+      authenticated: true,
+    });
   };
 
   // usePost hook with callback
@@ -68,6 +79,8 @@ const LoginForm: React.FC = () => {
           <Button type="submit">Kirjaudu</Button>
         </div>
       </form>
+      {/* NOTE: Temporary */}
+      <div>{JSON.stringify(auth?.auth, null, 2)}</div>
     </div>
   );
 };

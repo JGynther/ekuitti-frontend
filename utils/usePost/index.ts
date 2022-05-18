@@ -1,5 +1,5 @@
 import { PostRequest } from "@typings/usePost";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 // NOTE:
 // Due to react.strictMode being enabled on development version
@@ -39,7 +39,8 @@ const usePost = ({
         const json = await res.json();
 
         // Log response to console if in development mode
-        if (process.env.NODE_ENV === "development") console.log(json);
+        if (process.env.NODE_ENV === "development")
+          console.log("[debug] usePost hook response", json);
 
         setResponse(json);
       } catch (error) {
