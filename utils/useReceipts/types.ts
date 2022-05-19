@@ -30,7 +30,7 @@ type Receipt = {
 type Product = {
   name: string;
   quantity: number;
-  quanityCode: string;
+  quantityCode: string;
   unitPriceIncVAT: number;
   totalAmountExcVAT: number;
   totalAmountIncVAT: number;
