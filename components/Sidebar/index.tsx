@@ -1,3 +1,5 @@
+import LoginForm from "@components/LoginForm"
+
 const Sidebar: React.FC = ({ children }) => {
   return (
     <div>
@@ -15,6 +17,7 @@ const Sidebar: React.FC = ({ children }) => {
               Valikko 3
             </div>
           </div>
+          <LoginForm />
         </div>
       </div>
     </div>
