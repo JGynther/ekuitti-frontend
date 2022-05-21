@@ -36,17 +36,15 @@ const usePost = ({
           },
           body: JSON.stringify(request.body),
         });
-        const json = await res.json();
 
-        // Log response to console if in development mode
-        if (process.env.NODE_ENV === "development")
-          console.log("[debug] usePost hook response", json);
+        if (!res.ok) {
+          throw new Error(); // TODO: better define error
+        }
+
+        const json = await res.json();
 
         setResponse(json);
       } catch (error) {
-        // Currently an erroneus response is not treated as a error by this.
-        // It is instead passed as the response to ui.
-        // TODO: is this the wanted behaviour?
         setIsError(true);
       }
 
@@ -55,6 +53,13 @@ const usePost = ({
 
     postData();
   }, [request]);
+
+  // Log response to console if in development mode
+  useEffect(() => {
+    response &&
+      process.env.NODE_ENV === "development" &&
+      console.log("[debug] (usePost response)", response);
+  }, [response]);
 
   useEffect(() => {
     response && callback && callback(response);

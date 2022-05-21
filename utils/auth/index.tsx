@@ -1,7 +1,11 @@
 import { createContext, useContext, useState } from "react";
-import { User, Auth, AuthContextProvider } from "@typings/auth";
+import { Auth, AuthContextProvider } from "@typings/auth";
+import useSafeRouter from "@utils/useSafeRouter";
+import { useEffect } from "react";
 
-const AuthContext = createContext<undefined | AuthContextProvider>(undefined);
+// This avoids typescript thinking authcontext might be undefined
+// AuthContext is always defined if AuthProvider is properly used
+let AuthContext: React.Context<AuthContextProvider>;
 
 const AuthProvider: React.FC = ({ children }) => {
   const [auth, setAuth] = useState<Auth>({
@@ -14,6 +18,9 @@ const AuthProvider: React.FC = ({ children }) => {
     setAuth: setAuth,
   };
 
+  // Default value is supplied twice but no workaround for now
+  AuthContext = createContext<AuthContextProvider>(defaultValue);
+
   return (
     <AuthContext.Provider value={defaultValue}>{children}</AuthContext.Provider>
   );
@@ -21,6 +28,15 @@ const AuthProvider: React.FC = ({ children }) => {
 
 const useAuth = () => useContext(AuthContext);
 
-const useUser = () => useAuth()?.auth.user;
+const useUser = () => useAuth().auth.user;
 
-export { AuthProvider, useAuth, useUser };
+// Hook for handling (client-side) redirect to login on pages that require authentication
+const useLogin = () => {
+  const router = useSafeRouter();
+  const { authenticated } = useAuth().auth;
+  useEffect(() => {
+    authenticated ? router.push("/") : router.push("/login");
+  }, [router, authenticated]);
+};
+
+export { AuthProvider, useAuth, useUser, useLogin };
