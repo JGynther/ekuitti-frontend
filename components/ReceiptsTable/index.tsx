@@ -1,5 +1,6 @@
 import useReceipts from "@utils/useReceipts";
 import Link from "next/link";
+import numberToDecimalString from "@utils/numberFormat"
 
 const ReceiptsTable: React.FC = () => {
   const { receipts, isError } = useReceipts();
@@ -12,7 +13,7 @@ const ReceiptsTable: React.FC = () => {
   }
 
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div className="overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -31,14 +32,16 @@ const ReceiptsTable: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {receipts.slice(0, 10).map((receipt, index) => (
+          {receipts.slice(0, 5).map((receipt, index) => (
             <tr
               key={index}
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
             >
-              <td className="px-6 py-4">{receipt.company.name}</td>
-              <td className="px-6 py-4">{receipt["total-price"]}</td>
-              <td className="px-6 py-4">{JSON.parse(receipt.date).now}</td>
+              <td className="px-6 py-4">{receipt.merchant.name}</td>
+              <td className="px-6 py-4">{numberToDecimalString(receipt.totalPriceIncVAT)}</td>
+              <td className="px-6 py-4">
+                {new Date(receipt.receiptTimeStamp).toLocaleDateString("fi-FI")}
+              </td>
               <td className="px-6 py-4 text-right">
                 <Link href={`/receipts/${receipt.id}`}>
                   <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
