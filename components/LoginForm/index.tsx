@@ -9,22 +9,25 @@ const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const auth = useAuth();
+  const { setAuth } = useAuth();
 
   const handleUser = (res: {
+    ok: boolean;
     token: string;
     username: string;
     name: string;
   }) => {
-    setToken(res.token);
-    auth?.setAuth({
-      user: { username: res.username, name: res.name },
-      authenticated: true,
-    });
+    if (res) {
+      setToken(res.token);
+      setAuth({
+        user: { username: res.username, name: res.name },
+        authenticated: true,
+      });
+    }
   };
 
   // usePost hook with callback
-  const { response, setRequest } = usePost({
+  const { isError, setRequest } = usePost({
     callback: handleUser,
   });
 
@@ -55,6 +58,7 @@ const LoginForm: React.FC = () => {
   return (
     <div>
       <form onSubmit={useLogin}>
+        {isError && <span>Virheellinen tunnus</span>}
         <div className="py-2">
           Käyttäjänimi
           <input
@@ -79,8 +83,6 @@ const LoginForm: React.FC = () => {
           <Button type="submit">Kirjaudu</Button>
         </div>
       </form>
-      {/* NOTE: Temporary */}
-      <div>{JSON.stringify(auth?.auth, null, 2)}</div>
     </div>
   );
 };
