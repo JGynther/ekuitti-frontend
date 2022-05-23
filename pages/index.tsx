@@ -6,8 +6,10 @@ import Sidebar from "@components/Sidebar";
 import Footer from "@components/Footer";
 import Navigation from "@components/Navigation";
 import Header from "@components/Header";
+import { useLogin } from "@utils/auth";
 
 const Home: NextPage = () => {
+  useLogin();
   return (
     <div>
       <Head>

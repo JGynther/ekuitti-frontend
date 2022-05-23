@@ -1,41 +1,94 @@
 type Receipts = Receipt[];
 
 type Receipt = {
-  id: string;
-  date: string;
-  company: {
-    name: string;
-    "business-id": string;
-    "vat-id": string;
-    address: {
-      street: string;
-      city: string;
-      "postal-code": string;
-      country: string;
-    };
-  };
+  // Azure item ID
+  id?: string;
+
+  // eAddress that identifies the original buyer
+  eAddressId: string;
+
+  //used receipt data
+  receiptTimeStamp: string;
+  merchant: Merchant;
   products: Product[];
-  currency: string;
-  "total-price-excl-vat": number;
-  "vat-10"?: number;
-  "vat-14"?: number;
-  "vat-24"?: number;
-  "total-vat": number;
-  "total-price": number;
-  "meta-data"?: {
+  currencyISOCode: string;
+  totalPriceExcVAT: number;
+  totalVATAmount: number;
+  totalPriceIncVAT: number;
+  vats: TotalVAT[];
+
+  //unused/optional receipt data
+  receiptNumber?: string;
+  payments?: Payment[];
+  metaData?: {
     [key: string]: any;
   };
 };
 
-type Product = {
+type Merchant = {
   name: string;
-  quantity: number;
-  unit: string;
-  "unit-price": number;
-  "price-total": number;
-  vat: number;
-  "unit-vat": number;
-  "vat-total": number;
+  companyID: string;
+  branch: {
+    name: string;
+    address: {
+      streetAddress: string;
+      city: string;
+      zipCode: string;
+      country: string;
+    };
+  };
+};
+
+type Product = {
+  //used product data
+  name: string;
+  quantity: string; //string because different ways given: 1, 1,00, 4.25...
+  quantityCode: string; //kpl, KPL...
+  unitPriceIncVAT: number;
+  totalAmountExcVAT: number;
+  totalAmountIncVAT: number;
+  vats: VAT[];
+
+  //unused/optional product data
+  EANCode?: string;
+  productId?: string;
+  freeText?: string;
+  discounts?: Discount[];
+  unitPriceIncVATDecimal?: string; //not included in every product
+};
+
+type TotalVAT = {
+  VATRate: string;
+  totalAmountExcVAT: number;
+  totalAmountIncVAT: number;
+  totalVATAmount: number;
+};
+
+type VAT = {
+  VATRate: string;
+  totalAmountExcVAT: number;
+  totalAmountIncVAT: number;
+  VATAmount: number;
+};
+
+type Payment = {
+  type: string;
+  amount: number;
+  attributes: {
+    cardType: string;
+    timeStamp: string;
+    terminalId: string;
+    referenceNumber: string;
+    authorizationCode: string;
+    transactionId: string;
+    maskedPAN: string;
+  };
+};
+
+type Discount = {
+  amount: number;
+  description: string;
+  percentage?: string; //not included in every discount
 };
 
 export type { Product, Receipt, Receipts };
