@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css?family=Noto Serif");
+
 :root {
-    color-scheme: dark;
+    margin: 0 auto;
+    padding: 0 16vw;
+    min-width: 900px;
+    max-width: 1900px;
+}
+
+.titlefont {
+    font-family: 'Noto serif';
 }
