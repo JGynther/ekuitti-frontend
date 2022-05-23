@@ -1,7 +1,7 @@
-import * as usePost from "@utils/usePost";
-import * as useReceipts from "@utils/useReceipts";
-import * as useRequest from "@utils/useRequest";
-import * as useSafeRouter from "@utils/useSafeRouter";
+import usePost from "@utils/usePost";
+import useReceipts from "@utils/useReceipts";
+import useRequest from "@utils/useRequest";
+import useSafeRouter from "@utils/useSafeRouter";
 import { useAuth, useUser, useLogin } from "@utils/auth";
 
 export {
