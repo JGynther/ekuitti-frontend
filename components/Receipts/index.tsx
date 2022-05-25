@@ -1,18 +1,18 @@
 import useReceipts from "@utils/useReceipts";
 
 const Receipts: React.FC = () => {
-  const { receipts, isError } = useReceipts();
+  const { data, isLoading, isError } = useReceipts();
   if (isError) {
     return <div>Error!</div>;
   }
 
-  if (!receipts) {
+  if (!data) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
-      {receipts.map((receipt, index) => (
+      {data.map((receipt, index) => (
         <pre key={index}>{JSON.stringify(receipt, null, 2)}</pre>
       ))}
     </div>
