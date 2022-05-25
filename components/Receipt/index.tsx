@@ -1,4 +1,4 @@
-import useReceipts from "@utils/useReceipts";
+import { useReceipts } from "@utils/hooks";
 import { useRouter } from "next/router";
 
 const Receipt: React.FC = () => {
