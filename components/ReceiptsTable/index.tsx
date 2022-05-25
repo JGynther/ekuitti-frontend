@@ -1,4 +1,4 @@
-import useReceipts from "@utils/useReceipts";
+import { useReceipts } from "@utils/hooks";
 import Link from "next/link";
 import numberToDecimalString from "@utils/numberFormat";
 
