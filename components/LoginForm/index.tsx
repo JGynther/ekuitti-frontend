@@ -1,9 +1,8 @@
 import Button from "@components/Button";
-import usePost from "@utils/usePost";
 import { PostRequest } from "@typings/usePost";
 import { useState } from "react";
 import setToken from "@utils/auth/setToken";
-import { useAuth } from "@utils/auth";
+import { useAuth, usePost } from "@utils/hooks";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");

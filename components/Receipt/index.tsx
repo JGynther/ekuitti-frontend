@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import useRequest from "@utils/useRequest";
+import { useRequest } from "@utils/hooks";
 
 const Receipt: React.FC = () => {
   const router = useRouter();

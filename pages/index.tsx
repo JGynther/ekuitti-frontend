@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Dashboard from "@components/Dashboard";
 import Header from "@components/Header";
-import { useLogin } from "@utils/auth";
+import { useLogin } from "@utils/hooks";
 
 const Home: NextPage = () => {
   useLogin();

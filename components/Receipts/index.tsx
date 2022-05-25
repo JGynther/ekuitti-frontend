@@ -1,4 +1,4 @@
-import useReceipts from "@utils/useReceipts";
+import { useReceipts } from "@utils/hooks";
 
 const Receipts: React.FC = () => {
   const { receipts, isError } = useReceipts();
