@@ -16,7 +16,8 @@ module.exports = {
     extend: {
       fontSize: {
         title: "70px",
-        menu: "28px",
+        menu: "20px",
+        submenu: "18px",
       },
     },
   },
