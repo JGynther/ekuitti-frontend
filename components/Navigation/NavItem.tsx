@@ -1,11 +1,15 @@
 import { NavItemProps } from "./types";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import { useMemo, useState } from "react";
+import { RefObject, useMemo, useRef, useState } from "react";
 import Dropdown from "./Dropdown";
 import Link from "next/link";
+import useOnClickOutside from "@utils/useOnClickOutside";
 
 const NavItem: React.FC<NavItemProps> = ({ item, selected }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const ref = useRef<HTMLDivElement | null>(null);
+  useOnClickOutside(ref, () => setIsOpen(false));
 
   const classes = useMemo(() => {
     let borders = "";
@@ -16,7 +20,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, selected }) => {
   }, [selected, isOpen]);
 
   return (
-    <div className="w-full flex flex-col relative">
+    <div className="w-full flex flex-col relative" ref={ref}>
       <div className={classes + " flex justify-between h-14 px-3"}>
         <Link href={item.url}>
           <div className="h-fit text-menu font-medium self-center hover:cursor-pointer">{item.menu}</div>
