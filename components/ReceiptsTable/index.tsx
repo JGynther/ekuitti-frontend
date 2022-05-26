@@ -1,14 +1,14 @@
-import useReceipts from "@utils/useReceipts";
+import { useReceipts } from "@utils/hooks";
 import Link from "next/link";
-import numberToDecimalString from "@utils/numberFormat"
+import numberToDecimalString from "@utils/numberFormat";
 
 const ReceiptsTable: React.FC = () => {
-  const { receipts, isError } = useReceipts();
+  const { data, isError } = useReceipts();
   if (isError) {
     return <div>Error!</div>;
   }
 
-  if (!receipts) {
+  if (!data) {
     return <div>Loading...</div>;
   }
 
@@ -32,13 +32,15 @@ const ReceiptsTable: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {receipts.slice(0, 5).map((receipt, index) => (
+          {data.slice(0, 5).map((receipt, index) => (
             <tr
               key={index}
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
             >
               <td className="px-6 py-4">{receipt.merchant.name}</td>
-              <td className="px-6 py-4">{numberToDecimalString(receipt.totalPriceIncVAT)}</td>
+              <td className="px-6 py-4">
+                {numberToDecimalString(receipt.totalPriceIncVAT)}
+              </td>
               <td className="px-6 py-4">
                 {new Date(receipt.receiptTimeStamp).toLocaleDateString("fi-FI")}
               </td>

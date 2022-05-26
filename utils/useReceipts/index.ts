@@ -1,14 +1,18 @@
 import useSWR from "swr";
-import fetcher from "@utils/fetcher";
-import type { Receipts } from "@typings/useReceipts";
+import { fetcherCookies as fetcher } from "@utils/fetcher";
+import type { Receipt, Receipts } from "@typings/useReceipts";
 
-const useReceipts = () => {
-  const { data, error } = useSWR<Receipts>(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/receipts`,
-    fetcher
-  );
+const useReceipts = <T extends string | undefined = undefined>(id?: T) => {
+  type returnType = T extends string ? Receipt : Receipts;
+
+  const segment = id ? `/${id}` : "";
+
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/receipts${segment}`;
+
+  const { data, error } = useSWR<returnType>(url, fetcher);
+
   return {
-    receipts: data,
+    data: data,
     isLoading: !error && !data,
     isError: error,
   };

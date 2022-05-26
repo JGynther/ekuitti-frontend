@@ -4,13 +4,12 @@ import Receipt from "components/Receipt";
 
 const ReceiptPage: NextPage = () => {
   return (
-    <div>
-      {/* Each page should have or inherit a head component. */}
+    <>
       <Head>
         <title>Receipt</title>
       </Head>
-        <Receipt />
-    </div>
+      <Receipt />
+    </>
   );
 };
 
