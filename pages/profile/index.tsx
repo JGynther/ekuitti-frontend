@@ -3,12 +3,11 @@ import Head from "next/head";
 import Header from "@components/Header";
 import Navigation from "@components/Navigation";
 
-const ReceiptsPage: NextPage = () => {
+const ProfilePage: NextPage = () => {
   return (
     <div>
-      {/* Each page should have or inherit a head component. */}
       <Head>
-        <title>Receipts</title>
+        <title>eKuitti</title>
       </Head>
       <Header />
       <Navigation />
@@ -16,4 +15,5 @@ const ReceiptsPage: NextPage = () => {
   );
 };
 
-export default ReceiptsPage;
+// Export at the end of the file.
+export default ProfilePage;

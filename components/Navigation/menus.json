@@ -1,0 +1,56 @@
+[
+  {
+    "menu": "Kuitit",
+    "url": "/receipts",
+    "submenus": [
+      {
+        "title": "Kaikki kuitit",
+        "query": "all"
+      },
+      {
+        "title": "Saapuneet kuitit",
+        "query": "arrived"
+      },
+      {
+        "title": "Lähetetyt kuitit",
+        "query": "sent"
+      }
+    ]
+  },
+  {
+    "menu": "Lisää kuitti",
+    "url": "/add-receipt",
+    "submenus": [
+      {
+        "title": "Lisää manuaalisesti",
+        "query": "manual"
+      },
+      {
+        "title": "Lisää kuvasta",
+        "query": "import"
+      }
+    ]
+  },
+  {
+    "menu": "Lähetä kuitti",
+    "url": "/send-receipt",
+    "submenus": []
+  },
+  {
+    "menu": "Profiili",
+    "url": "/profile",
+    "submenus": [
+      {
+        "title": "Omat tiedot"
+      },
+      {
+        "title": "Asetukset",
+        "query": "settings"
+      },
+      {
+        "title": "Kirjaudu ulos",
+        "query": "logout"
+      }
+    ]
+  }
+]

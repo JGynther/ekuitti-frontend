@@ -1,20 +1,25 @@
-import Button from "@components/Button";
-import Search from "./Search";
+import { useRouter } from "next/router";
 
-const Navigation: React.FC = ({ children }) => {
+import NavItem from "./NavItem";
+import menus from "./menus.json";
+
+const Navigation: React.FC = () => {
+  const router = useRouter();
+
   return (
-    <nav className="bg-neutral-900 sticky top-0 border-neutral-600 py-2">
-      <div className="flex container mx-auto px-4 items-center justify-between">
-        <div className="flex space-x-10">
-          <Search />
-          <Button>Lisää kuitti</Button>
-        </div>
-        <div className="flex space-x-5">
-          <Button type="round" />
-          <Button type="round" />
-          <Button type="round" />
-        </div>
-      </div>
+    <nav className="flex justify-between px-4 py-2">
+      {menus.map((m) => {
+        if (router.pathname === "/" && m.url.startsWith("/receipts")) {
+          return <NavItem item={m} selected={true} key={m.menu} />;
+        }
+        return (
+          <NavItem
+            key={m.menu}
+            item={m}
+            selected={router.pathname.startsWith(m.url)}
+          />
+        );
+      })}
     </nav>
   );
 };
