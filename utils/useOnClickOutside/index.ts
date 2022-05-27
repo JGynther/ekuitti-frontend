@@ -1,6 +1,9 @@
 import { RefObject, useEffect } from "react";
 
-export default function useOnClickOutside(ref: RefObject<HTMLElement | undefined>, handler: () => void) {
+export default function useOnClickOutside(
+  ref: RefObject<HTMLElement | undefined>,
+  handler: () => void
+) {
   useEffect(() => {
     /**
      * Alert if clicked on outside of element
@@ -16,5 +19,5 @@ export default function useOnClickOutside(ref: RefObject<HTMLElement | undefined
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref]);
+  }, [ref, handler]);
 }
