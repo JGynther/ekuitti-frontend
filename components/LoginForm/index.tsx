@@ -1,13 +1,11 @@
 import Button from "@components/Button";
 import { PostRequest } from "@typings/usePost";
-import { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import setToken from "@utils/auth/setToken";
 import { useAuth, usePost } from "@utils/hooks";
 
 const LoginForm: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
+  const [form, setForm] = useState<Record<string, unknown>>({});
   const { setAuth } = useAuth();
 
   const handleUser = (res: {
@@ -30,58 +28,70 @@ const LoginForm: React.FC = () => {
     callback: handleUser,
   });
 
-  const handleUsernameChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setUsername(event.currentTarget.value);
-  };
-
-  const handlePasswordChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setPassword(event.currentTarget.value);
-  };
-
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const postRequest: PostRequest = {
+    setRequest({
       url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`,
       body: {
-        username: username,
-        password: password,
+        username: form.username,
+        password: form.password,
       },
-    };
-
-    setRequest(postRequest);
-
-    setUsername("");
-    setPassword("");
+    });
   };
 
   return (
-    <div>
-      <form onSubmit={handleLogin}>
+    <div className="flex flex-col h-screen items-center justify-center">
+      <form
+        onSubmit={handleLogin}
+        className="flex flex-col space-y-5 border border-grey rounded p-10 shadow-lg max-w-md w-full"
+      >
         {isError && <span>Virheellinen tunnus</span>}
-        <div className="py-2">
+        <Input
+          id="username"
+          type="username"
+          form={{ state: form, setForm: setForm }}
+        >
           Käyttäjänimi
-          <input
-            id="username"
-            type="text"
-            value={username}
-            name="Username"
-            onChange={handleUsernameChange}
-          />
-        </div>
-        <div className="py-2">
+        </Input>
+        <Input
+          id="password"
+          type="password"
+          form={{ state: form, setForm: setForm }}
+        >
           Salasana
-          <input
-            id="password"
-            type="password"
-            value={password}
-            name="Password"
-            onChange={handlePasswordChange}
-          />
-        </div>
-        <div className="py-2">
-          <Button type="submit">Kirjaudu</Button>
-        </div>
+        </Input>
+        <Button>Kirjaudu sisään</Button>
       </form>
+    </div>
+  );
+};
+
+type InputProps = {
+  id: string;
+  type: string;
+  form: {
+    state: Record<string, unknown>;
+    setForm: React.Dispatch<React.SetStateAction<Record<string, unknown>>>;
+  };
+};
+
+const Input: React.FC<InputProps> = ({ id, type, form, children }) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const temp = { ...form.state };
+    temp[id] = event.target.value;
+    form.setForm(temp);
+  };
+  return (
+    <div className="flex justify-between text-submenu">
+      <label htmlFor={id} className="">
+        {children}
+      </label>
+      <input
+        id={id}
+        type={type}
+        onChange={handleChange}
+        className="border border-grey bg-grey rounded px-2"
+      />
     </div>
   );
 };
