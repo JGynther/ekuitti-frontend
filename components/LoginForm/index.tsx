@@ -1,31 +1,24 @@
 import Button from "@components/Button";
 import Input from "./Input";
 import { useState } from "react";
-import setToken from "@utils/auth/setToken";
-import { useAuth, usePost } from "@utils/hooks";
+import { useLogin, usePost } from "@utils/hooks";
 
 const LoginForm: React.FC = () => {
   const [form, setForm] = useState<Record<string, unknown>>({});
-  const { setAuth } = useAuth();
 
-  const handleUser = (res: {
-    ok: boolean;
-    token: string;
+  const login = useLogin();
+  const loginCallback = (res: {
     username: string;
     name: string;
+    token: string;
   }) => {
-    if (res) {
-      setToken(res.token);
-      setAuth({
-        user: { username: res.username, name: res.name },
-        authenticated: true,
-      });
-    }
+    const { username, name, token } = res;
+    login(username, name, token);
   };
 
   // usePost hook with callback
   const { isError, setRequest } = usePost({
-    callback: handleUser,
+    callback: loginCallback,
   });
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {

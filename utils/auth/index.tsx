@@ -2,6 +2,7 @@ import { createContext, useContext, useState, Context } from "react";
 import { Auth, AuthContextProvider } from "@typings/auth";
 import useSafeRouter from "@utils/useSafeRouter";
 import { useEffect } from "react";
+import setToken, { checkToken } from "@utils/auth/setToken";
 
 // This avoids typescript thinking authcontext might be undefined
 // AuthContext is always defined if AuthProvider is properly used
@@ -30,6 +31,30 @@ const useAuth = () => useContext(AuthContext);
 
 const useUser = () => useAuth().auth.user;
 
+const useLogin = () => {
+  const { auth, setAuth } = useAuth();
+  const { authenticated } = auth;
+
+  const login = (username: string, name: string, token: string) => {
+    setToken(token);
+    setAuth({
+      user: { username: username, name: name },
+      authenticated: true,
+    });
+  };
+
+  useEffect(() => {
+    if (checkToken() && !authenticated) {
+      setAuth({
+        user: { username: "", name: "" },
+        authenticated: true,
+      });
+    }
+  }, [authenticated, setAuth]);
+
+  return login;
+};
+
 const useLogout = () => {
   const { setAuth } = useAuth();
   return () => setAuth({ user: null, authenticated: false });
@@ -54,4 +79,4 @@ const Protected: React.FC = ({ children }) => {
   return <>{(user || path === "/login") && children}</>;
 };
 
-export { AuthProvider, useAuth, useUser, useLogout, Protected };
+export { AuthProvider, useAuth, useUser, useLogin, useLogout, Protected };
