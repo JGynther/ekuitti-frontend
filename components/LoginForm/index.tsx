@@ -38,7 +38,7 @@ const LoginForm: React.FC = () => {
     setPassword(event.currentTarget.value);
   };
 
-  const useLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const postRequest: PostRequest = {
       url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`,
@@ -56,7 +56,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <div>
-      <form onSubmit={useLogin}>
+      <form onSubmit={handleLogin}>
         {isError && <span>Virheellinen tunnus</span>}
         <div className="py-2">
           Käyttäjänimi

@@ -1,11 +1,13 @@
 import "global.css";
 import type { AppProps } from "next/app";
-import { AuthProvider } from "@utils/auth";
+import { AuthProvider, Protected } from "@utils/auth";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      <Component {...pageProps} />
+      <Protected>
+        <Component {...pageProps} />
+      </Protected>
     </AuthProvider>
   );
 }

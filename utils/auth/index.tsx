@@ -1,11 +1,11 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, Context } from "react";
 import { Auth, AuthContextProvider } from "@typings/auth";
 import useSafeRouter from "@utils/useSafeRouter";
 import { useEffect } from "react";
 
 // This avoids typescript thinking authcontext might be undefined
 // AuthContext is always defined if AuthProvider is properly used
-let AuthContext: React.Context<AuthContextProvider>;
+let AuthContext: Context<AuthContextProvider>;
 
 const AuthProvider: React.FC = ({ children }) => {
   const [auth, setAuth] = useState<Auth>({
@@ -30,13 +30,28 @@ const useAuth = () => useContext(AuthContext);
 
 const useUser = () => useAuth().auth.user;
 
+const useLogout = () => {
+  const { setAuth } = useAuth();
+  return () => setAuth({ user: null, authenticated: false });
+};
+
 // Hook for handling (client-side) redirect to login on pages that require authentication
-const useLogin = () => {
+// Should not be used directly but via Protected wrapper component
+const useProtected = () => {
   const router = useSafeRouter();
   const { authenticated } = useAuth().auth;
   useEffect(() => {
-    authenticated ? router.push("/") : router.push("/login");
+    authenticated
+      ? router.pathname === "/login" && router.push("/")
+      : router.push("/login");
   }, [router, authenticated]);
+  return router.pathname;
 };
 
-export { AuthProvider, useAuth, useUser, useLogin };
+const Protected: React.FC = ({ children }) => {
+  const path = useProtected();
+  const user = useUser();
+  return <>{(user || path === "/login") && children}</>;
+};
+
+export { AuthProvider, useAuth, useUser, useLogout, Protected };
