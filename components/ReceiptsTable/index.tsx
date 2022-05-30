@@ -32,27 +32,30 @@ const ReceiptsTable: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {data.slice(0, 5).map((receipt, index) => (
-            <tr
-              key={index}
-              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-            >
-              <td className="px-6 py-4">{receipt.merchant.name}</td>
-              <td className="px-6 py-4">
-                {numberToDecimalString(receipt.totalPriceIncVAT)}
-              </td>
-              <td className="px-6 py-4">
-                {new Date(receipt.receiptTimeStamp).toLocaleDateString("fi-FI")}
-              </td>
-              <td className="px-6 py-4 text-right">
-                <Link href={`/receipts/${receipt.id}`}>
-                  <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    Lisätietoja
-                  </a>
-                </Link>
-              </td>
-            </tr>
-          ))}
+          {data &&
+            data.slice(0, 5).map((receipt, index) => (
+              <tr
+                key={index}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+              >
+                <td className="px-6 py-4">{receipt.merchant.name}</td>
+                <td className="px-6 py-4">
+                  {numberToDecimalString(receipt.totalPriceIncVAT)}
+                </td>
+                <td className="px-6 py-4">
+                  {new Date(receipt.receiptTimeStamp).toLocaleDateString(
+                    "fi-FI"
+                  )}
+                </td>
+                <td className="px-6 py-4 text-right">
+                  <Link href={`/receipts/${receipt.id}`}>
+                    <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                      Lisätietoja
+                    </a>
+                  </Link>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
