@@ -1,6 +1,6 @@
 import Button from "@components/Button";
-import { PostRequest } from "@typings/usePost";
-import React, { ChangeEvent, useState } from "react";
+import Input from "./Input";
+import { useState } from "react";
 import setToken from "@utils/auth/setToken";
 import { useAuth, usePost } from "@utils/hooks";
 
@@ -62,36 +62,6 @@ const LoginForm: React.FC = () => {
         </Input>
         <Button>Kirjaudu sisään</Button>
       </form>
-    </div>
-  );
-};
-
-type InputProps = {
-  id: string;
-  type: string;
-  form: {
-    state: Record<string, unknown>;
-    setForm: React.Dispatch<React.SetStateAction<Record<string, unknown>>>;
-  };
-};
-
-const Input: React.FC<InputProps> = ({ id, type, form, children }) => {
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const temp = { ...form.state };
-    temp[id] = event.target.value;
-    form.setForm(temp);
-  };
-  return (
-    <div className="flex justify-between text-submenu">
-      <label htmlFor={id} className="">
-        {children}
-      </label>
-      <input
-        id={id}
-        type={type}
-        onChange={handleChange}
-        className="border border-grey bg-grey rounded px-2"
-      />
     </div>
   );
 };
