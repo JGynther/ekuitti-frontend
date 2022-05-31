@@ -1,4 +1,3 @@
-import Button from "@components/Button";
 import { PostRequest } from "@typings/usePost";
 import { useState } from "react";
 import setToken from "@utils/auth/setToken";
@@ -79,7 +78,7 @@ const LoginForm: React.FC = () => {
           />
         </div>
         <div className="py-2">
-          <Button type="submit">Kirjaudu</Button>
+          <button type="submit">Kirjaudu</button>
         </div>
       </form>
     </div>

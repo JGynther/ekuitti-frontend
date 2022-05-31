@@ -13,9 +13,12 @@ const Receipts: React.FC = () => {
 
   return (
     <div>
-      {data.map((receipt, index) => (
-        <ReceiptInfo key={index} receipt={receipt} />
-      ))}
+      <div className="px-8 pt-6 pb-4 text-subtitle font-bold">Kaikki kuitit</div>
+      <div className="px-10">
+        {data?.map((receipt, index) => (
+          <ReceiptInfo key={index} receipt={receipt} />
+        ))}
+      </div>
     </div>
   );
 };

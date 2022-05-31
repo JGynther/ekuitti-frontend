@@ -4,7 +4,6 @@ import Header from "@components/Header";
 import Navigation from "@components/Navigation";
 import { useLogin } from "@utils/hooks";
 import Receipts from "@components/Receipts";
-import Footer from "@components/Footer";
 
 const Home: NextPage = () => {
   useLogin();
@@ -17,7 +16,6 @@ const Home: NextPage = () => {
       <Header />
       <Navigation />
       <Receipts />
-      <Footer />
     </>
   );
 };
