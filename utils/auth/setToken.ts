@@ -2,6 +2,10 @@ const setToken = (token: string) => {
   setCookie("token", token, `${60 * 60}`);
 };
 
+const removeToken = () => {
+  setCookie("token", "", "0");
+};
+
 const checkToken = () => {
   const cookies = document.cookie.split("; ");
   const token = cookies?.filter((cookie) => cookie.startsWith("token="));
@@ -16,4 +20,4 @@ const setCookie = (cookie: string, value: string, expiration?: string) => {
 };
 
 export default setToken;
-export { setCookie, checkToken };
+export { setCookie, checkToken, removeToken };
