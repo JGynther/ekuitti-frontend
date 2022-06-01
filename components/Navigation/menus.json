@@ -1,11 +1,10 @@
 [
   {
     "menu": "Kuitit",
-    "url": "/receipts",
+    "url": "/",
     "submenus": [
       {
-        "title": "Kaikki kuitit",
-        "query": "all"
+        "title": "Kaikki kuitit"
       },
       {
         "title": "Saapuneet kuitit",

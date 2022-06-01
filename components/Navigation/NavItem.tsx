@@ -13,7 +13,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, selected }) => {
 
   const classes = useMemo(() => {
     let borders = "";
-    if (item.url.startsWith("/receipts")) {
+    if (item.url === "/") {
       borders = selected || isOpen ? "" : "border-l-2 border-grey ";
     }
     return (
@@ -38,7 +38,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, selected }) => {
           onClick={() => setIsOpen(!isOpen)}
         />
       </div>
-      {isOpen ? <Dropdown items={item.submenus} baseUrl={item.url} /> : <></>}
+      {isOpen && <Dropdown items={item.submenus} baseUrl={item.url} />}
     </div>
   );
 };
