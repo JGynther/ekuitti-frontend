@@ -7,6 +7,7 @@ const useSafeRouter = () => {
   const push = (path: string) => pathname !== path && router.push(path);
   return {
     push: push,
+    pathname: router.pathname,
   };
 };
 

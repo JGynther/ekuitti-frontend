@@ -1,85 +1,58 @@
-import { PostRequest } from "@typings/usePost";
+import Input from "./Input";
 import { useState } from "react";
-import setToken from "@utils/auth/setToken";
-import { useAuth, usePost } from "@utils/hooks";
+import { useLogin, usePost } from "@utils/hooks";
 
 const LoginForm: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState<Record<string, unknown>>({});
 
-  const { setAuth } = useAuth();
-
-  const handleUser = (res: {
-    ok: boolean;
-    token: string;
+  const login = useLogin();
+  const loginCallback = (res: {
     username: string;
     name: string;
+    token: string;
   }) => {
-    if (res) {
-      setToken(res.token);
-      setAuth({
-        user: { username: res.username, name: res.name },
-        authenticated: true,
-      });
-    }
+    const { username, name, token } = res;
+    login(username, name, token);
   };
 
   // usePost hook with callback
   const { isError, setRequest } = usePost({
-    callback: handleUser,
+    callback: loginCallback,
   });
 
-  const handleUsernameChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setUsername(event.currentTarget.value);
-  };
-
-  const handlePasswordChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setPassword(event.currentTarget.value);
-  };
-
-  const useLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const postRequest: PostRequest = {
+    setRequest({
       url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`,
       body: {
-        username: username,
-        password: password,
+        username: form.username,
+        password: form.password,
       },
-    };
-
-    setRequest(postRequest);
-
-    setUsername("");
-    setPassword("");
+    });
   };
 
   return (
-    <div>
-      <form onSubmit={useLogin}>
+    <div className="flex flex-col h-screen items-center justify-center">
+      <form
+        onSubmit={handleLogin}
+        className="flex flex-col space-y-5 border border-grey rounded p-10 shadow-lg max-w-md w-full"
+      >
         {isError && <span>Virheellinen tunnus</span>}
-        <div className="py-2">
+        <Input
+          id="username"
+          type="username"
+          form={{ state: form, setForm: setForm }}
+        >
           Käyttäjänimi
-          <input
-            id="username"
-            type="text"
-            value={username}
-            name="Username"
-            onChange={handleUsernameChange}
-          />
-        </div>
-        <div className="py-2">
+        </Input>
+        <Input
+          id="password"
+          type="password"
+          form={{ state: form, setForm: setForm }}
+        >
           Salasana
-          <input
-            id="password"
-            type="password"
-            value={password}
-            name="Password"
-            onChange={handlePasswordChange}
-          />
-        </div>
-        <div className="py-2">
-          <button type="submit">Kirjaudu</button>
-        </div>
+        </Input>
+        <button>Kirjaudu sisään</button>
       </form>
     </div>
   );
