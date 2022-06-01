@@ -12,12 +12,15 @@ module.exports = {
       grey: "#e8e8e8",
       black: "#121212",
       white: "#ffffff",
+      dark: "#797979",
     },
     extend: {
       fontSize: {
         title: "70px",
         menu: "20px",
         submenu: "18px",
+        subtitle: "22px",
+        receipt: "18px",
       },
     },
   },

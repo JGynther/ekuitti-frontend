@@ -9,6 +9,7 @@
     padding: 0 16vw;
     min-width: 900px;
     max-width: 1900px;
+    overflow-y: hidden;
 }
 
 .titlefont {

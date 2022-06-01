@@ -1,4 +1,3 @@
-import Button from "@components/Button";
 import Input from "./Input";
 import { useState } from "react";
 import { useLogin, usePost } from "@utils/hooks";
@@ -53,7 +52,7 @@ const LoginForm: React.FC = () => {
         >
           Salasana
         </Input>
-        <Button>Kirjaudu sisään</Button>
+        <button>Kirjaudu sisään</button>
       </form>
     </div>
   );
