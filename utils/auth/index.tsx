@@ -3,6 +3,7 @@ import { Auth, AuthContextProvider } from "@typings/auth";
 import useSafeRouter from "@utils/useSafeRouter";
 import { useEffect } from "react";
 import setToken, { removeToken, checkToken } from "@utils/auth/setToken";
+import { useRouter } from "next/router";
 
 // This avoids typescript thinking authcontext might be undefined
 // AuthContext is always defined if AuthProvider is properly used
@@ -57,9 +58,11 @@ const useLogin = () => {
 
 const useLogout = () => {
   const { setAuth } = useAuth();
+  const router = useRouter();
   return () => {
     removeToken();
     setAuth({ user: null, authenticated: false });
+    router.push('/login');
   };
 };
 

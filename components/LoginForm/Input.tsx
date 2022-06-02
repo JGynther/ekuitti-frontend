@@ -8,7 +8,7 @@ const Input: React.FC<InputProps> = ({ id, type, form, children }) => {
     form.setForm(temp);
   };
   return (
-    <div className="flex justify-between text-submenu">
+    <div className="flex justify-between w-[350px] text-submenu mt-[25px]">
       <label htmlFor={id} className="">
         {children}
       </label>
