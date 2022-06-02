@@ -1,18 +1,22 @@
 [
   {
     "menu": "Kuitit",
-    "url": "/",
+    "url": "/receipts",
     "submenus": [
       {
         "title": "Kaikki kuitit"
       },
       {
         "title": "Saapuneet kuitit",
-        "query": "arrived"
+        "url": "arrived"
       },
       {
         "title": "Lähetetyt kuitit",
-        "query": "sent"
+        "url": "forwarded"
+      },
+      {
+        "title": "Jaetut kuitit",
+        "url": "shared"
       }
     ]
   },
@@ -21,12 +25,10 @@
     "url": "/add-receipt",
     "submenus": [
       {
-        "title": "Lisää manuaalisesti",
-        "query": "manual"
+        "title": "Lisää manuaalisesti"
       },
       {
-        "title": "Lisää kuvasta",
-        "query": "import"
+        "title": "Lisää kuvasta"
       }
     ]
   },
@@ -44,11 +46,10 @@
       },
       {
         "title": "Asetukset",
-        "query": "settings"
+        "url": "settings"
       },
       {
-        "title": "Kirjaudu ulos",
-        "query": "logout"
+        "title": "Kirjaudu ulos"
       }
     ]
   }

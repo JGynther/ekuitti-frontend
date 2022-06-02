@@ -1,21 +1,20 @@
 type Submenu = {
-  title: string,
-  query?: string,
-}
+  title: string;
+  url?: string;
+};
 
 type NavItemProps = {
   item: {
-    menu: string,
-    url: string,
-    submenus: Submenu[],
+    menu: string;
+    url: string;
+    submenus: Submenu[];
   };
-  selected: boolean,
+  selected: boolean;
 };
 
 type DropdownProps = {
   baseUrl: string;
   items: Submenu[];
-}
-  
+};
+
 export type { NavItemProps, DropdownProps };
-  
