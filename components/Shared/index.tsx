@@ -1,8 +1,9 @@
-import { useShared } from "@utils/hooks";
+import { useTokenRequest } from "@utils/hooks";
 import SharedInfo from "../Shared/SharedInfo";
+import type { Receipts } from "@typings/useReceipts";
 
 const Shared: React.FC = () => {
-  const { data, isError } = useShared();
+  const { data, isError } = useTokenRequest<Receipts>('/receipts/shared');
   if (isError) {
     return <div>Error!</div>;
   }

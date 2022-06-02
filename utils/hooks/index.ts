@@ -3,7 +3,7 @@ import useReceipts from "@utils/useReceipts";
 import useRequest from "@utils/useRequest";
 import useSafeRouter from "@utils/useSafeRouter";
 import { useAuth, useUser, useLogin } from "@utils/auth";
-import useShared from "@utils/useShared";
+import useTokenRequest from "@utils/useTokenRequest";
 
 export {
   usePost,
@@ -13,5 +13,5 @@ export {
   useAuth,
   useUser,
   useLogin,
-  useShared
+  useTokenRequest,
 };
