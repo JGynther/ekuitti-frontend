@@ -13,7 +13,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, selected }) => {
 
   const classes = useMemo(() => {
     let borders = "";
-    if (item.url === "/") {
+    if (item.url === "/" || item.url.startsWith("/receipts")) {
       borders = selected || isOpen ? "" : "border-l-2 border-grey ";
     }
     return (

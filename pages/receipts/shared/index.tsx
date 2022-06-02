@@ -2,20 +2,20 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Header from "@components/Header";
 import Navigation from "@components/Navigation";
-import AddReceipt from "@components/AddReceipt";
+import Shared from "@components/Shared";
 
-const SendPage: NextPage = () => {
+const ReceiptsSharedPage: NextPage = () => {
   return (
-    <div>
+    <>
       <Head>
         <title>eKuitti</title>
+        <meta name="description" content="" />
       </Head>
       <Header />
       <Navigation />
-      <AddReceipt />
-    </div>
+      <Shared />
+    </>
   );
 };
 
-// Export at the end of the file.
-export default SendPage;
+export default ReceiptsSharedPage;
