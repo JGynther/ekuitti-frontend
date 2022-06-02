@@ -23,14 +23,7 @@
   {
     "menu": "Lisää kuitti",
     "url": "/add-receipt",
-    "submenus": [
-      {
-        "title": "Lisää manuaalisesti"
-      },
-      {
-        "title": "Lisää kuvasta"
-      }
-    ]
+    "submenus": []
   },
   {
     "menu": "Lähetä kuitti",
