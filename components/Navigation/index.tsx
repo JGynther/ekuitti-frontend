@@ -9,8 +9,16 @@ const Navigation: React.FC = () => {
   return (
     <nav className="flex justify-between px-4 py-2">
       {menus.map((m) => {
-        if (m.url === "/") {
-          return <NavItem item={m} selected={router.pathname === "/" || router.pathname === "/search"} key={m.menu} />;
+        if (m.url === "/" || m.url === "/receipts") {
+          return <NavItem 
+            item={m} 
+            selected={
+              router.pathname === "/" 
+              || router.pathname.startsWith("/receipts") 
+              || router.pathname === "/search"
+            }
+            key={m.menu} 
+          />;
         }
         return (
           <NavItem
