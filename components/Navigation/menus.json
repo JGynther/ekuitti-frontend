@@ -4,10 +4,7 @@
     "url": "/receipts",
     "submenus": [
       {
-        "title": "Kaikki kuitit"
-      },
-      {
-        "title": "Saapuneet kuitit",
+        "title": "Omat kuitit",
         "url": "/arrived"
       },
       {
@@ -15,7 +12,7 @@
         "url": "/forwarded"
       },
       {
-        "title": "Jaetut kuitit",
+        "title": "Minulle jaetut kuitit",
         "url": "/shared"
       }
     ]
