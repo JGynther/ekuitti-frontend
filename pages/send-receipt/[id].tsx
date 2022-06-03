@@ -12,15 +12,17 @@ const SendPage: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
   return (
-    <>
+    <div className="">
       <Head>
         <title>eKuitti</title>
       </Head>
       <Header />
       <Navigation />
-      <ReceiptView id={id} />
-      <Send id={id} />
-    </>
+      <div className="h-[calc(100vh-250px)] px-10 overflow-y-auto">
+        <ReceiptView id={id} />
+        <Send id={id} />
+      </div>
+    </div>
   );
 };
 
@@ -28,7 +30,7 @@ const Send: React.FC<any> = ({ id }) => {
   const [address, setAddress] = useState("did:");
   const { response, isError, setRequest } = usePost();
   return (
-    <div className="mt-10 bg-grey p-8 rounded  border">
+    <div className="mt-10 bg-grey p-8 rounded border">
       {isError && (
         <div className="text-center text-orange font-bold pb-5">
           Virhe! Tarkista eOsoite.
