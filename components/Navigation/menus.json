@@ -20,12 +20,11 @@
   {
     "menu": "Lisää kuitti",
     "url": "/add-receipt",
-    "submenus": []
-  },
-  {
-    "menu": "Lähetä kuitti",
-    "url": "/send-receipt",
-    "submenus": []
+    "submenus": [
+      {
+        "title": "Lähetä kuitti tiedosto"
+      }
+    ]
   },
   {
     "menu": "Profiili",
