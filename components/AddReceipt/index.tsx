@@ -1,16 +1,16 @@
 import { PostRequest } from "@typings/usePost";
 import usePost from "@utils/usePost";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CancelIcon from "@material-ui/icons/Cancel";
 
 const AddReceipt: React.FC = () => {
+  const fileRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>();
   const [status, setStatus] = useState<string>("");
   const post = usePost({callback: (res: any) => {
     setStatus("Kuitti lisätty!");
-    setFile(null);
-    setFileName("");
+    clearFile();
   }});
 
   const handleChange = (target: HTMLInputElement) => {
@@ -25,7 +25,6 @@ const AddReceipt: React.FC = () => {
       if (!e.target) {
         return;
       }
-      console.log("e.target.result", e.target.result);
       setFile(e.target.result as string);
     };
   }
@@ -34,12 +33,19 @@ const AddReceipt: React.FC = () => {
     if (!file) {
       return;
     }
-    console.log(file)
     const req: PostRequest = {
       url: "http://localhost:8080/api/receipts",
       body: JSON.parse(file),
     }
     post.setRequest(req);
+  }
+
+  const clearFile = () => {
+    setFile(null);
+    setFileName("");
+    if (fileRef && fileRef.current) {
+      fileRef.current.value = "";
+    }
   }
 
   return (
@@ -48,11 +54,11 @@ const AddReceipt: React.FC = () => {
       <div className="flex w-full justify-between px-12">
         <div className="flex">
           <label htmlFor="file" className="bg-grey rounded text-black font-bold py-2 px-4 hover:cursor-pointer">Valitse</label>
-          <input id="file" type="file" accept=".json" className="hidden" onChange={(e) => handleChange(e.target)} />
+          <input ref={fileRef} id="file" type="file" accept=".json" className="hidden" onChange={(e) => handleChange(e.target)} />
           <div className="mx-4 self-center">Valittu tiedosto: {fileName}</div>
-          {file != null && <CancelIcon onClick={() => setFile(null)} className="text-orange hover:cursor-pointer self-center" />}
+          {file != null && <CancelIcon onClick={clearFile} className="text-orange hover:cursor-pointer self-center" />}
         </div>
-        <button onClick={() => onSubmit()} className="bg-blue text-white font-bold px-4 py-2 rounded">Lisää kuitti</button>
+        <button onClick={onSubmit} className="bg-blue text-white font-bold px-4 py-2 rounded">Lisää kuitti</button>
       </div>
       <div className="text-orange font-bold m-auto mt-[15px] ml-12">{status}</div>
     </div>
