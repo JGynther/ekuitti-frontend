@@ -3,6 +3,7 @@ import useOnClickOutside from "@utils/useOnClickOutside";
 import { useRef } from "react";
 import Link from "next/link";
 import { ReceiptDetailsProps } from "./types";
+import { useRouter } from "next/router";
 
 const ReceiptDetails: React.FC<ReceiptDetailsProps> = ({
   receipt,
@@ -30,6 +31,9 @@ const ReceiptDetails: React.FC<ReceiptDetailsProps> = ({
     });
   };
 
+  const router = useRouter();
+  const path = router.pathname;
+
   return (
     <div className="absolute bg-black/50 w-full h-full top-0 left-0 hover:cursor-default">
       <div
@@ -52,14 +56,16 @@ const ReceiptDetails: React.FC<ReceiptDetailsProps> = ({
         </div>
         <div className="rounded mb-3 bg-blue h-[3px]" />
         <div className="flex justify-between">
-          <Link href={`/send-receipt/${receipt.id}`} passHref>
-            <button className="bg-orange px-3 py-2 rounded font-bold">
-              Lähetä kuitti
-            </button>
-          </Link>
+          {!path.startsWith("/receipts/shared/") && (
+            <Link href={`/send-receipt/${receipt.id}`} passHref>
+              <button className="bg-orange px-3 py-2 rounded font-bold">
+                Lähetä kuitti
+              </button>
+            </Link>
+          )}
           <button
             onClick={() => onClose()}
-            className="bg-grey px-3 py-2 rounded font-bold"
+            className="bg-grey px-3 py-2 rounded font-bold ml-auto"
           >
             Sulje
           </button>
