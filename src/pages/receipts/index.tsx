@@ -1,8 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Header from "@components/Header";
-import Navigation from "@components/Navigation";
 import Receipts from "@components/Receipts";
+import TopPanel from "@components/TopPanel";
 
 const ReceiptsPage: NextPage = () => {
   return (
@@ -11,8 +10,7 @@ const ReceiptsPage: NextPage = () => {
         <title>eKuitti</title>
         <meta name="description" content="" />
       </Head>
-      <Header />
-      <Navigation />
+      <TopPanel />
       <Receipts />
     </>
   );

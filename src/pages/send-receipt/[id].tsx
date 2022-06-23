@@ -1,11 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Header from "@components/Header";
-import Navigation from "@components/Navigation";
 import { useReceipts, usePost } from "@utils/hooks";
 import { useRouter } from "next/router";
 import numberToDecimalString from "@utils/numberFormat";
 import { useState } from "react";
+import TopPanel from "@components/TopPanel";
 
 const SendPage: NextPage = () => {
   const router = useRouter();
@@ -15,8 +14,7 @@ const SendPage: NextPage = () => {
       <Head>
         <title>eKuitti</title>
       </Head>
-      <Header />
-      <Navigation />
+      <TopPanel />
       <div className="h-[calc(100vh-250px)] px-10 overflow-y-auto">
         <ReceiptView id={id} />
         <Send id={id} />

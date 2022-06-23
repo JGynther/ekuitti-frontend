@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Header from "@components/Header";
-import Navigation from "@components/Navigation";
+import TopPanel from "@components/TopPanel";
 
 const SettingsPage: NextPage = () => {
   return (
@@ -9,8 +8,7 @@ const SettingsPage: NextPage = () => {
       <Head>
         <title>eKuitti</title>
       </Head>
-      <Header />
-      <Navigation />
+      <TopPanel />
     </div>
   );
 };

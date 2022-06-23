@@ -14,6 +14,9 @@ module.exports = {
       white: "#ffffff",
       dark: "#797979",
     },
+    screens: {
+      desktop: "1000px",
+    },
     extend: {
       fontSize: {
         title: "70px",

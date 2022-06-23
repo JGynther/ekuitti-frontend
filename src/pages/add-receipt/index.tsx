@@ -1,8 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Header from "@components/Header";
-import Navigation from "@components/Navigation";
 import AddReceipt from "@components/AddReceipt";
+import TopPanel from "@components/TopPanel";
 
 const SendPage: NextPage = () => {
   return (
@@ -10,8 +9,7 @@ const SendPage: NextPage = () => {
       <Head>
         <title>eKuitti</title>
       </Head>
-      <Header />
-      <Navigation />
+      <TopPanel />
       <AddReceipt />
     </div>
   );
