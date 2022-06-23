@@ -1,17 +1,18 @@
+import { useRef, useState } from "react";
 import { PostRequest } from "@typings/hooks/usePost";
 import { usePost } from "@utils/hooks";
-import { useState } from "react";
 import CancelIcon from "@material-ui/icons/Cancel";
 
 const AddReceipt: React.FC = () => {
+  const fileRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>();
   const [status, setStatus] = useState<string>("");
+
   const post = usePost({
     callback: (res: any) => {
       setStatus("Kuitti lisätty!");
-      setFile(null);
-      setFileName("");
+      clearFile();
     },
   });
 
@@ -27,7 +28,6 @@ const AddReceipt: React.FC = () => {
       if (!e.target) {
         return;
       }
-      console.log("e.target.result", e.target.result);
       setFile(e.target.result as string);
     };
   };
@@ -36,12 +36,19 @@ const AddReceipt: React.FC = () => {
     if (!file) {
       return;
     }
-    console.log(file);
     const req: PostRequest = {
       url: "http://localhost:8080/api/receipts",
       body: JSON.parse(file),
     };
     post.setRequest(req);
+  };
+
+  const clearFile = () => {
+    setFile(null);
+    setFileName("");
+    if (fileRef && fileRef.current) {
+      fileRef.current.value = "";
+    }
   };
 
   return (
@@ -58,6 +65,7 @@ const AddReceipt: React.FC = () => {
             Valitse
           </label>
           <input
+            ref={fileRef}
             id="file"
             type="file"
             accept=".json"
@@ -67,13 +75,13 @@ const AddReceipt: React.FC = () => {
           <div className="mx-4 self-center">Valittu tiedosto: {fileName}</div>
           {file != null && (
             <CancelIcon
-              onClick={() => setFile(null)}
+              onClick={clearFile}
               className="text-orange hover:cursor-pointer self-center"
             />
           )}
         </div>
         <button
-          onClick={() => onSubmit()}
+          onClick={onSubmit}
           className="bg-blue text-white font-bold px-4 py-2 rounded"
         >
           Lisää kuitti
