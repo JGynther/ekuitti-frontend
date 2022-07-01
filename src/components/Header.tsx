@@ -31,11 +31,10 @@ const Header: React.FC = () => {
             />
           </div>
           <div className="flex justify-end pt-1 pr-1">
-            <Link href="/search" passHref>
-              <div className="rounded bg-grey p-1 hover:cursor-pointer">
-                <SearchIcon className="text-black" style={{ fontSize: 30 }} />
-              </div>
-            </Link>
+            <div className="rounded bg-grey p-1 hover:cursor-pointer">
+              <SearchIcon className="text-black" style={{ fontSize: 30 }} />
+              <input />
+            </div>
           </div>
         </div>
       </div>
