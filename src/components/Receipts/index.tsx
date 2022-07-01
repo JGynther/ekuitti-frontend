@@ -1,19 +1,18 @@
 import { useReceipts } from "@utils/hooks";
+import { useTriggerAuthCheck } from "@utils/auth";
 import ReceiptInfo from "./ReceiptInfo";
 
 const Receipts: React.FC = () => {
   const { data, isError } = useReceipts();
+  const trigger = useTriggerAuthCheck();
 
   if (isError) {
-    return <div>Error!</div>;
+    trigger(); // TODO:
+    return null;
   }
 
   if (!data) {
     return <div>Loading...</div>;
-  }
-
-  if (!data.map) {
-    return <div>Please refresh...</div>;
   }
 
   return (
@@ -22,7 +21,7 @@ const Receipts: React.FC = () => {
         Kaikki kuitit
       </div>
       <div className="px-10 overflow-y-scroll h-[calc(100vh-290px)]">
-        {data.map && data.map((receipt, index) => (
+        {data.map((receipt, index) => (
           <ReceiptInfo key={index} receipt={receipt} />
         ))}
       </div>
