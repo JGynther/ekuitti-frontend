@@ -1,4 +1,5 @@
 import { Fetcher } from "swr";
+import { createError } from "@utils/errors";
 
 const fetcher: Fetcher<any, string> = async (
   input: RequestInfo,
@@ -7,8 +8,6 @@ const fetcher: Fetcher<any, string> = async (
   const res = await fetch(input, init);
   return await res.json();
 };
-
-type ExtError = Error & { status: number };
 
 const fetcherCookies: Fetcher<any, string> = async (
   input: RequestInfo,
@@ -19,11 +18,7 @@ const fetcherCookies: Fetcher<any, string> = async (
     ...init,
   });
 
-  if (res.status === 401) {
-    const error = new Error("Unauthorized") as ExtError;
-    error.status = res.status;
-    throw error;
-  }
+  if (res.status === 401) throw createError(401, "Unauthorized");
 
   return await res.json();
 };

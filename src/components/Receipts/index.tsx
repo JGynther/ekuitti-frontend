@@ -1,14 +1,11 @@
 import { useReceipts } from "@utils/hooks";
-import { useTriggerAuthCheck } from "@utils/auth";
 import ReceiptInfo from "./ReceiptInfo";
 
 const Receipts: React.FC = () => {
   const { data, isError } = useReceipts();
-  const trigger = useTriggerAuthCheck();
 
   if (isError) {
-    trigger(); // TODO:
-    return null;
+    return <div>Error!</div>;
   }
 
   if (!data) {
