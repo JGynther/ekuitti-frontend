@@ -66,6 +66,15 @@ const useLogout = () => {
   };
 };
 
+// A hook for providing a function to trigger authentication status check
+const useTriggerAuthCheck = () => {
+  const logout = useLogout();
+  const { authenticated } = useAuth().auth;
+  return () => {
+    if (!checkToken() && authenticated) logout();
+  };
+};
+
 // Hook for handling (client-side) redirect to login on pages that require authentication
 // Should not be used directly but via Protected wrapper component
 const useProtected = () => {
@@ -85,4 +94,12 @@ const Protected: React.FC = ({ children }) => {
   return <>{(user || path === "/login") && children}</>;
 };
 
-export { AuthProvider, useAuth, useUser, useLogin, useLogout, Protected };
+export {
+  AuthProvider,
+  useAuth,
+  useUser,
+  useLogin,
+  useLogout,
+  useTriggerAuthCheck,
+  Protected,
+};
