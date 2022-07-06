@@ -33,12 +33,77 @@ const Header: React.FC = () => {
           <div className="flex justify-end pt-1 pr-1">
             <div className="rounded bg-grey p-1 hover:cursor-pointer">
               <SearchIcon className="text-black" style={{ fontSize: 30 }} />
-              <input />
+              <Search />
             </div>
           </div>
         </div>
       </div>
     </div>
+  );
+};
+
+import { useState, useEffect } from "react";
+import fuzzy from "@utils/fuzzy";
+import { useReceipts } from "@utils/hooks";
+import type { Receipts } from "@typings/hooks/useReceipts";
+
+const extractSearchStrings = (arr: Receipts) => {
+  const strings =
+    arr.map &&
+    arr.map((receipt) => {
+      let string = "";
+      string += receipt.merchant.name + " ";
+      receipt.products.forEach((product) => (string += product.name + " "));
+      string += receipt.receiptTimeStamp.split("T")[0] + " ";
+      string += (receipt.totalPriceIncVAT / 100)
+        .toFixed(2)
+        .toString()
+        .replace(".", ",");
+      return string;
+    });
+  return strings;
+};
+
+type SearchProps = {
+  data: string[] | undefined;
+  initialQuery?: string;
+};
+
+const useSearch = ({ data, initialQuery }: SearchProps) => {
+  const [query, setQuery] = useState<string | undefined>(initialQuery);
+  const [result, setResult] = useState<any[] | undefined>();
+  useEffect(() => {
+    if (data && query) {
+      const results = fuzzy.find({ data, query });
+      setResult(results);
+    }
+    if (query === "") {
+      setResult(undefined);
+    }
+  }, [data, query]);
+  return { result, setQuery };
+};
+
+const Search: React.FC = () => {
+  const { data } = useReceipts();
+  const { result, setQuery } = useSearch({
+    data: data && extractSearchStrings(data),
+  });
+  return (
+    <>
+      <input
+        onChange={(e) => {
+          setQuery(e.target.value);
+        }}
+      />
+      {result && (
+        <div className="absolute bg-grey z-50 p-2 space-y-2">
+          {result.map((result, index) => (
+            <div key={index}>{JSON.stringify(result)}</div>
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 
