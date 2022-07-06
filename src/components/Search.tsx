@@ -6,6 +6,9 @@ const Search: React.FC = () => {
   const { result, setQuery, meta } = useSearch({
     data: data,
     key: "text",
+    config: {
+      threshold: 0.65, // A good value is ~ 0.65-0.70
+    },
   });
   return (
     <>

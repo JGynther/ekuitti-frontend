@@ -2,8 +2,9 @@ import type { SearchProps, MetaData } from "@typings/hooks/useSearch";
 import { useState, useEffect } from "react";
 import fuzzy from "@utils/fuzzy";
 
-const useSearch = ({ data, key, initialQuery }: SearchProps) => {
+const useSearch = ({ data, key, initialQuery, config }: SearchProps) => {
   const [query, setQuery] = useState<string | undefined>(initialQuery);
+  const [_config] = useState(config);
   const [result, setResult] = useState<any[] | undefined>();
   const [meta, setMeta] = useState<MetaData>();
 
@@ -11,7 +12,12 @@ const useSearch = ({ data, key, initialQuery }: SearchProps) => {
     if (data && query) {
       const start = performance.now();
 
-      const results = fuzzy.find({ data: data as any, query, key }); // hacky data as any, types should still be fine
+      const results = fuzzy.find({
+        data: data as any,
+        query,
+        key,
+        ..._config,
+      }); // hacky data as any, types should still be fine
       setResult(results);
 
       setMeta({
@@ -24,7 +30,7 @@ const useSearch = ({ data, key, initialQuery }: SearchProps) => {
     if (query === "") {
       setResult(undefined);
     }
-  }, [query, data, key]);
+  }, [query, data, key, _config]);
 
   return { result, setQuery, meta };
 };
