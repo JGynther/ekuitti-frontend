@@ -4,7 +4,7 @@ import fuzzy from "@utils/fuzzy";
 
 const useSearch = ({ data, key, initialQuery, config }: SearchProps) => {
   const [query, setQuery] = useState<string | undefined>(initialQuery);
-  const [_config] = useState(config);
+  const [_config] = useState(config); // Needed to avoid infinite loop
   const [result, setResult] = useState<any[] | undefined>();
   const [meta, setMeta] = useState<MetaData>();
 
@@ -13,11 +13,11 @@ const useSearch = ({ data, key, initialQuery, config }: SearchProps) => {
       const start = performance.now();
 
       const results = fuzzy.find({
-        data: data as any,
+        data: data as any, // hacky data as any, types should still be fine
         query,
         key,
         ..._config,
-      }); // hacky data as any, types should still be fine
+      });
       setResult(results);
 
       setMeta({
