@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Header from "@components/Header";
 import Navigation from "@components/Navigation";
+import Search from "@components/Search";
 
 const SendPage: NextPage = () => {
   return (
@@ -11,6 +12,7 @@ const SendPage: NextPage = () => {
       </Head>
       <Header />
       <Navigation />
+      <Search />
     </div>
   );
 };
