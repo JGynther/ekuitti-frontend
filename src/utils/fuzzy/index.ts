@@ -14,18 +14,23 @@ const find = ({ data, query, n = 10, threshold = 0.5, key }: Find) => {
 };
 
 const score = ({ data, query, key, threshold = 0.5 }: Search) => {
-  const queryCached = splitToTokens(query.toLowerCase());
+  const queryCached = splitToTokens(query.toLowerCase().trim());
   const length = data.length;
   const scores = [];
 
   for (let i = 0; i < length; ++i) {
-    let string = key ? data[i][key] : data[i];
-    string = string.toLowerCase();
+    const original = key ? data[i][key] : data[i];
+    const string = original.toLowerCase();
     const score = single({ string, query: queryCached, isCached: true });
 
     if (score < threshold) continue;
 
-    scores.push({ string, score, _index: i, meta: key && data[i].meta });
+    scores.push({
+      string: original,
+      score,
+      _index: i,
+      meta: key && data[i].meta,
+    });
   }
 
   return scores;

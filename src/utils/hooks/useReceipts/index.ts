@@ -48,13 +48,15 @@ const useReceiptsProcessed = () => {
   const { data } = useReceipts();
   const [processed, setProcessed] =
     useState<{ text: string; meta: Record<string, any> }[]>();
+
   useEffect(() => {
     if (data) {
       const processed = processReceipts(data);
       setProcessed(processed);
     }
   }, [data]);
-  return processed;
+
+  return { processed, data };
 };
 
 export default useReceipts;

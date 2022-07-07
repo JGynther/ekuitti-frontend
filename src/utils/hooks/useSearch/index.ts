@@ -29,6 +29,7 @@ const useSearch = ({ data, key, initialQuery, config }: SearchProps) => {
 
     if (query === "") {
       setResult(undefined);
+      setMeta(undefined);
     }
   }, [query, data, key, _config]);
 
