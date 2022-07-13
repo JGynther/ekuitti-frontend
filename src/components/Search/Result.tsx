@@ -1,12 +1,15 @@
 import type { Receipts } from "@typings/hooks/useReceipts";
 import Link from "next/link";
+import fuzzy from "@utils/fuzzy";
 
 const Result = ({
   string,
+  query,
   id,
   data,
 }: {
   string: string;
+  query: string;
   id: string;
   data: Receipts | undefined;
 }) => {
@@ -14,10 +17,15 @@ const Result = ({
 
   if (!receipt) return null;
 
+  const matching = fuzzy.highlight(string, query);
+
   return (
     <Link href={`/send-receipt/${id}`} passHref>
       <div className="bg-dark bg-opacity-10 hover:bg-opacity-100 hover:text-white transition py-2 px-4 space-y-1 cursor-pointer">
-        <div className="text-lg">{string}</div>
+        <div
+          className="text-lg"
+          dangerouslySetInnerHTML={{ __html: matching }} // A bit dangerous
+        ></div>
         <div className="text-sm opacity-90 flex flex-col">
           <div>
             {new Date(receipt.receiptTimeStamp).toLocaleDateString("fi-FI")}

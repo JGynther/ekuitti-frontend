@@ -7,7 +7,7 @@ import MetaInfo from "@components/Search/MetaInfo";
 
 const Search: React.FC = () => {
   const { processed, data } = useReceiptsProcessed();
-  const { result, setQuery, meta } = useSearch({
+  const { result, setQuery, meta, query } = useSearch({
     data: processed,
     key: "text",
     config: {
@@ -18,14 +18,16 @@ const Search: React.FC = () => {
     <SearchBar setQuery={setQuery}>
       <MetaInfo meta={meta} />
       <Results>
-        {result?.map((thing, index) => (
-          <Result
-            key={index}
-            string={thing.string}
-            id={thing.meta.id}
-            data={data}
-          />
-        ))}
+        {query &&
+          result?.map((thing, index) => (
+            <Result
+              key={index}
+              string={thing.string}
+              query={query}
+              id={thing.meta.id}
+              data={data}
+            />
+          ))}
       </Results>
     </SearchBar>
   );

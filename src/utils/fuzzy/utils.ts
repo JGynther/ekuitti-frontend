@@ -12,4 +12,25 @@ const splitMultipleSeparators = (string: string, separators: string[]) => {
   return string.split(" ");
 };
 
-export { splitToTokens, splitMultipleSeparators };
+const highlightedString = (string: string, matching: boolean[]) => {
+  let highlighted = "";
+  let open = false;
+
+  for (let i = 0; i < string.length; ++i) {
+    if (matching[i] && !open) {
+      open = true;
+      highlighted += "<b>";
+    }
+
+    if (!matching[i] && open) {
+      open = false;
+      highlighted += "</b>";
+    }
+
+    highlighted += string[i];
+  }
+
+  return highlighted;
+};
+
+export { splitToTokens, splitMultipleSeparators, highlightedString };

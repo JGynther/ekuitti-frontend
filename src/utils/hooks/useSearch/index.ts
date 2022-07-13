@@ -33,7 +33,7 @@ const useSearch = ({ data, key, initialQuery, config }: SearchProps) => {
     }
   }, [query, data, key, _config]);
 
-  return { result, setQuery, meta };
+  return { result, setQuery, meta, query };
 };
 
 export default useSearch;

@@ -1,5 +1,5 @@
 import type { Find, Search, Single } from "@typings/fuzzy";
-import { splitToTokens } from "@utils/fuzzy/utils";
+import { splitToTokens, highlightedString } from "@utils/fuzzy/utils";
 import generalizedMongueElkan from "@utils/fuzzy/generalizedMongueElkan";
 
 const find = ({ data, query, n = 10, threshold = 0.5, key }: Find) => {
@@ -42,11 +42,41 @@ const single = ({ string, query, isCached }: Single) => {
   return generalizedMongueElkan(tokensString, tokensQuery);
 };
 
+const highlight = (string: string, query: string) => {
+  // Searching is case insensitive
+  const matchS = string.toLowerCase().trim();
+  let matchQ = query.toLowerCase().trim();
+
+  // An array of booleans to determine characters to be highlighted
+  const matching = Array(string.length).fill(false);
+
+  // Prioritze matching substrings over characters
+  matchQ.split(" ").forEach((q) => {
+    const index = matchS.search(q);
+    if (index === -1) return;
+    for (let i = index; i < index + q.length; ++i) matching[i] = true;
+    matchQ = matchQ.replace(q, "");
+  });
+
+  // Find matching characters
+  for (let i = 0; i < query.length; ++i) {
+    for (let j = 0; j < string.length; ++j) {
+      if (matching[j]) continue;
+      if (matchS[j] !== matchQ[i]) continue;
+      matching[j] = true;
+      break;
+    }
+  }
+
+  return highlightedString(string, matching);
+};
+
 const fuzzy = {
   find: find,
   score: score,
   single: single,
+  highlight: highlight,
 };
 
 export default fuzzy;
-export { find, score, single };
+export { find, score, single, highlight };
