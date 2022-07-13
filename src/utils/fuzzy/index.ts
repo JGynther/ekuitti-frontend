@@ -1,6 +1,6 @@
 import type { Find, Search, Single } from "@typings/fuzzy";
 import { splitToTokens, highlightedString } from "@utils/fuzzy/utils";
-import generalizedMongueElkan from "@utils/fuzzy/generalizedMongueElkan";
+import generalizedMongeElkan from "@utils/fuzzy/generalizedMongeElkan";
 
 const find = ({ data, query, n = 10, threshold = 0.5, key }: Find) => {
   const scores =
@@ -39,7 +39,7 @@ const score = ({ data, query, key, threshold = 0.5 }: Search) => {
 const single = ({ string, query, isCached }: Single) => {
   const tokensString = splitToTokens(string.trim());
   const tokensQuery = isCached ? query : splitToTokens(query.trim());
-  return generalizedMongueElkan(tokensString, tokensQuery);
+  return generalizedMongeElkan(tokensString, tokensQuery);
 };
 
 const highlight = (string: string, query: string) => {
