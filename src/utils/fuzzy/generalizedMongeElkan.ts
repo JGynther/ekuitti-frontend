@@ -1,7 +1,7 @@
 import jaroWinkler from "@utils/fuzzy/jaroWinkler";
 
 // https://www.researchgate.net/publication/221629015_Generalized_Mongue-Elkan_Method_for_Approximate_Text_String_Comparison
-const generalizedMongueElkan = (
+const generalizedMongeElkan = (
   string: string[],
   query: string[],
   m: number = 5,
@@ -27,4 +27,4 @@ const generalizedMongueElkan = (
   return (sum / cached_length_string) ** (1 / m);
 };
 
-export default generalizedMongueElkan;
+export default generalizedMongeElkan;
