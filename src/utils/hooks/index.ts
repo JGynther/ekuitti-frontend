@@ -5,6 +5,7 @@ import useSafeRouter from "@utils/hooks/useSafeRouter";
 import { useAuth, useUser, useLogin } from "@utils/auth";
 import useTokenRequest from "@utils/hooks/useTokenRequest";
 import useOnClickOutside from "@utils/hooks/useOnClickOutside";
+import useSearch from "@utils/hooks/useSearch";
 
 export {
   usePost,
@@ -16,4 +17,5 @@ export {
   useLogin,
   useTokenRequest,
   useOnClickOutside,
+  useSearch,
 };
